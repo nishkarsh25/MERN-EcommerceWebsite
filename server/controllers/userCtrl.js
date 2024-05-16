@@ -90,7 +90,7 @@ return res.status(500).json({msg:err.message})
         catch(err){
 
         }
-    },
+    }
     
     
 }
