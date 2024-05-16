@@ -85,7 +85,7 @@ return res.status(500).json({msg:err.message})
     logout:async(req,res)=>{
         try{
             res.clearCookie('refreshtoken',{path:'/user/refresh_token'})
-            
+            return res.json({msg:"Log Out"})
         }
         catch(err){
 
