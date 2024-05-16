@@ -90,8 +90,15 @@ return res.status(500).json({msg:err.message})
         catch(err){
 
         }
-    }
-    
+    },
+    getUser:async(req,res)=>{
+        try{
+            
+        }
+        catch(err){
+            
+        }
+    },
     
 }
 
