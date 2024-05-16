@@ -99,7 +99,7 @@ return res.status(500).json({msg:err.message})
             res.json(user)
         }
         catch(err){
-            
+            return res.status(500).json({msg:err.message})
         }
     },
     
