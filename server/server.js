@@ -8,4 +8,8 @@ app.get('/',(req,res)=>{
     res.json({msg:"This is Example"})
 })
 
+app.listen(PORT,() => {
+    console.log("SERVER IS RUNNING ...")
+})
+
 
