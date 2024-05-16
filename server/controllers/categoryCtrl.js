@@ -34,6 +34,16 @@ const categoryCtrl = {
         }catch(err){
             return res.status(500).json({msg:err.message})
         }
+    },
+    updateCategory:async(req,res) => {
+        try{
+            const {name} = req.body;
+            await Category.findByIdAndUpdate(req.params.id,{name})
+
+            res.json({msg:"Updated"})
+        }catch(err){
+            return res.status(500).josn({msg:err.message })
+        }
     }
 }
 
