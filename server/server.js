@@ -1,9 +1,12 @@
 const express = require('express');
 const mongoose = require('mongoose');
 
-const PORT = process.env.PORT || 5000;
 
 const app = express();
+
+
+const PORT = process.env.PORT || 5000;
+
 app.get('/',(req,res)=>{
     res.json({msg:"This is Example"})
 })
@@ -12,10 +15,12 @@ app.listen(PORT,() => {
     console.log("SERVER IS RUNNING ...")
 })
 
+app.use('/user',require('./routes/userRouter'))
+
 
 //connect mongoDB
 
-const URI = 'mongodb://127.0.0.1:27017/myDatabase2';
+const URI = process.env.MONGODB_URL;
 
 mongoose.connect(URI,{
     useNewUrlParser:true,
