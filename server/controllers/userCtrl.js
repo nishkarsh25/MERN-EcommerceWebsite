@@ -93,7 +93,9 @@ return res.status(500).json({msg:err.message})
     },
     getUser:async(req,res)=>{
         try{
-            const user = await Users.findById(req.user.id)
+            const user = await Users.findById(req.user.id).select('-password')
+
+            
         }
         catch(err){
             
