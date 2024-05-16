@@ -72,6 +72,11 @@ return res.status(500).json({msg:err.message})
             const accesstoken = createAccessToken({id:user._id})
             const refreshtoken = createRefreshToken({id:user._id})
 
+            res.cookie('refreshtoken',refreshtoken,{
+                httpOnly:true,
+                path:'/user/refresh_token'
+            })
+
             
         }catch(err){
             
