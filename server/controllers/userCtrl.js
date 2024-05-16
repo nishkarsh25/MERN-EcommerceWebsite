@@ -77,7 +77,7 @@ return res.status(500).json({msg:err.message})
                 path:'/user/refresh_token'
             })
 
-            
+            res.json({accesstoken})
         }catch(err){
             
         }
