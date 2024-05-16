@@ -18,6 +18,7 @@ app.listen(PORT,() => {
 })
 
 app.use('/user',require('./routes/userRouter'))
+app.use('/api',require('./routes/categoryRouter'))
 
 
 //connect mongoDB
