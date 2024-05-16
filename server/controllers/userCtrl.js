@@ -63,6 +63,9 @@ return res.status(500).json({msg:err.message})
         try{
             const {email,password} = req.body;
 
+            const user = await Users.findOne({email})
+            if(!user) return res.status(400).json({msg:"User does not exist"})
+
             
         }catch(err){
             
