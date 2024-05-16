@@ -8,6 +8,24 @@ const categoryCtrl = {
         }catch(err){
             return res.status(500).json({msg:err.message})
         }
+    },
+    createCategory: async(req,res) => {
+        try{
+
+            const {name} = req.body;
+            const category = await Category.findOne({name})
+
+            if(category) return res.status(400).json({msg:"Category Already Exixts"})
+
+            const newCategory = new Category({name})
+
+            await newCategory.save()
+
+            res.json({msg:"Created a Category"})
+
+        }catch(err){
+            return res.status(500).json({msg:err.message})
+        }
     }
 }
 
