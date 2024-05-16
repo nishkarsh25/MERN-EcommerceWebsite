@@ -79,7 +79,7 @@ return res.status(500).json({msg:err.message})
 
             res.json({accesstoken})
         }catch(err){
-            
+            return res.status(500).json({msg:err.message})
         }
     }
     
