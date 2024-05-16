@@ -93,7 +93,6 @@ return res.status(500).json({msg:err.message})
     },
     getUser:async(req,res)=>{
         try{
-            
         }
         catch(err){
             
