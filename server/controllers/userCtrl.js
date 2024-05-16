@@ -69,6 +69,9 @@ return res.status(500).json({msg:err.message})
             const isMatch = await bcrypt.compare(password,user.password)
             if(!isMatch) return res.status(400).json({msg:"Incorrect Password"})
 
+            const accesstoken = createAccessToken({id:user._id})
+            const refreshtoken = createRefreshToken({id:user._id})
+
             
         }catch(err){
             
