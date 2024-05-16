@@ -81,7 +81,16 @@ return res.status(500).json({msg:err.message})
         }catch(err){
             return res.status(500).json({msg:err.message})
         }
-    }
+    },
+    logout:async(req,res)=>{
+        try{
+            res.clearCookie('refreshtoken',{path:'/user/refresh_token'})
+            
+        }
+        catch(err){
+
+        }
+    },
     
     
 }
