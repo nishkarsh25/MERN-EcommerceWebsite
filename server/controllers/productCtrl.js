@@ -19,6 +19,11 @@ class APIfeatures{
 
         let queryStr = JSON.stringify(queryObj)
         queryStr = queryStr.replace(/\b(gte|gt|lt|lte|regex)\b/g, match => '$' + match)
+        console.log(queryStr)
+        //queryStr = '{ "price": { "$lt": 80 }, "title": { "$regex": "e" } }'
+        //in find operation
+        // YourModel.find({ "price": { "$lt": 80 }, "title": { "$regex": "e" } });
+
         
         this.query = this.query.find(JSON.parse(queryStr))
 
