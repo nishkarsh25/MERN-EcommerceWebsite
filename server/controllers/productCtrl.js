@@ -55,6 +55,7 @@ class APIfeatures{
             this.query = this.query.sort(sortBy)
 
             console.log(sortBy)
+            //const sortedProducts = await Products.find({}).sort('price -createdAt');
             //'price -createdAt'
         }else{
             this.query = this.query.sort('-createdAt')
