@@ -25,7 +25,20 @@ class APIfeatures{
         return this
     }
 
-    
+    sorting(){
+        if(this.queryString.sort){
+            
+            const sortBy = this.queryString.sort.split(',').join(' ')
+
+            this.query = this.query.sort(sortBy)
+
+            console.log(sortBy)
+        }else{
+            this.query = this.query.sort('-createdAt')
+        }
+
+        return this
+    }
 
    
 }
