@@ -36,7 +36,7 @@ class APIfeatures{
         //http://localhost:5000/api/products?price[lt]=80&sort=price,-createdAt&title[regex]=e&page=2&limit=1
         //params
         // price[lt]=80: Filters products where the price is less than 80.
-        // sort=price,-createdAt: Sorts the products by price in ascending order and then by createdAt in descending order.
+        // sort=price,-createdAt: Sorts the products by price in ascending order and then by createdAt in descending order for same price.
         // title[regex]=e: Filters products where the title contains the letter "e" (case-sensitive).
         // page=2: Specifies the page number for pagination.
         // limit=1: Specifies the number of products per page.
