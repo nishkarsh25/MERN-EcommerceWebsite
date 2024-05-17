@@ -12,11 +12,21 @@ class APIfeatures{
 
     filtering(){
         const queryObj = {...this.queryString} 
-
+        
+        console.log(queryObj)
+        //same as req.query but a copy since we used spread operator, this.queryStr is a reference to req.query so same object but heres a copy of req.query or more specifically copy of this.queryStr
+        // {
+        //     price: { lt: '80' },
+        //     sort: 'price,-createdAt',
+        //     title: { regex: 'e' },
+        //     page: '2',
+        //     limit: '1'
+        //   }
         const excluededFields = ['page','sort','limit']
         excluededFields.forEach(el => delete(queryObj[el]))
 
-
+        console.log(queryObj)
+        //{ price: { lt: '80' }, title: { regex: 'e' } }
         let queryStr = JSON.stringify(queryObj)
         queryStr = queryStr.replace(/\b(gte|gt|lt|lte|regex)\b/g, match => '$' + match)
         console.log(queryStr)
