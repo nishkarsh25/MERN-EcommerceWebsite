@@ -14,7 +14,12 @@ const Cart = () => {
     setCart(newCart);
   };
 
-  
+  const handleIncrement = (productId) => {
+    const newCart = cart.map(product =>
+      product._id === productId ? { ...product, quantity: product.quantity + 1 } : product
+    );
+    setCart(newCart);
+  };
 
   
 
