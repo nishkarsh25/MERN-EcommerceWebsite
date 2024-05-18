@@ -21,7 +21,11 @@ export const DataProvider = ({children}) => {
         if(firstLogin) refreshToken()
     },[])
 
-    
+    const state = {
+        token: [token,setToken],
+        productsAPI:ProductAPI(),
+        userAPI:UserAPI(token)
+    }
 
 
     
