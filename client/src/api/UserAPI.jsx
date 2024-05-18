@@ -47,4 +47,4 @@ const UserAPI = (token) => {
     };
 };
 
-
+export default UserAPI;
