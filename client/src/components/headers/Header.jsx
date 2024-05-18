@@ -26,7 +26,14 @@ const Header = () => {
     );
   };
 
-  
+  const loggedRouter = () => {
+    return (
+      <>
+        <li><Link to='/history' className="text-white hover:text-gray-300">HISTORY</Link></li>
+        <li><Link to='/' onClick={logoutUser} className="text-white hover:text-gray-300">LOGOUT</Link></li>
+      </>
+    );
+  };
 
   
 };
