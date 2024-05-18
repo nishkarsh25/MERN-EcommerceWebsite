@@ -46,7 +46,10 @@ const Cart = () => {
   // };
 
 
-  
+  if (cart.length === 0)
+    return (
+      <h2 className="text-center text-5xl mt-20">Cart Empty</h2>
+    );
 
   
 
