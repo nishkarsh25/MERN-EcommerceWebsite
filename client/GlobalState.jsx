@@ -4,5 +4,5 @@ import { useState } from "react";
 import axios from "axios";
 import UserAPI from "./api/UserAPI";
 
-
+export const GlobalState = createContext()
 
