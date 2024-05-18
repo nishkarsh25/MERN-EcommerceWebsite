@@ -20,8 +20,8 @@ const Header = () => {
   const adminRouter = () => {
     return (
       <>
-        <li><Link to='/create_product' className="text-white hover:text-gray-300">CREATE PRODUCT</Link></li>
-        <li><Link to='/category' className="text-white hover:text-gray-300">CATEGORIES</Link></li>
+        <Link to='/create_product' className="text-white hover:text-gray-300">CREATE PRODUCT</Link>
+        <Link to='/category' className="text-white hover:text-gray-300">CATEGORIES</Link>
       </>
     );
   };
@@ -29,8 +29,8 @@ const Header = () => {
   const loggedRouter = () => {
     return (
       <>
-        <li><Link to='/history' className="text-white hover:text-gray-300">HISTORY</Link></li>
-        <li><Link to='/' onClick={logoutUser} className="text-white hover:text-gray-300">LOGOUT</Link></li>
+        <Link to='/history' className="text-white hover:text-gray-300">HISTORY</Link>
+        <Link to='/' onClick={logoutUser} className="text-white hover:text-gray-300">LOGOUT</Link>
       </>
     );
   };
