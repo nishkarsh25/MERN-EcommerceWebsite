@@ -26,7 +26,18 @@ const UserAPI = (token) => {
         }
     }, [token]);
 
-    
+    const addCart = (product) => {
+        if (!isLogged) return alert("Please log in first.");
+        
+
+        const check = cart.every(item => item._id !== product._id);
+
+        if (check) {
+            setCart([...cart, { ...product, quantity: 1 }]);
+        } else {
+            alert("This product has already been added to the cart.");
+        }
+    };
 
     
 };
