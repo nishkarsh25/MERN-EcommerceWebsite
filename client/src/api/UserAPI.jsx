@@ -10,7 +10,7 @@ const UserAPI = (token) => {
         if (token) {
             const getUser = async () => {
                 try {
-                    const res = await axios.get('http://localhost:5000/user/infor', {
+                    const res = await axios.get('/user/infor', {
                         headers: { Authorization: token }
                     });
 
