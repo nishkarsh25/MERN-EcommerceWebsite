@@ -20,8 +20,8 @@ const Header = () => {
   const adminRouter = () => {
     return (
       <>
-        <Link to='/create_product' className="text-white hover:text-gray-300">CREATE PRODUCT</Link>
-        <Link to='/category' className="text-white hover:text-gray-300">CATEGORIES</Link>
+        <Link to='/create_product' className="text-white hover:text-gray-300 text-sm md:text-base lg:text-lg font-medium uppercase tracking-wide mr-4 md:mr-6">Create Product</Link>
+        <Link to='/category' className="text-white hover:text-gray-300 text-sm md:text-base lg:text-lg font-medium uppercase tracking-wide mr-4 md:mr-6">Categories</Link>
       </>
     );
   };
@@ -29,8 +29,8 @@ const Header = () => {
   const loggedRouter = () => {
     return (
       <>
-        <Link to='/history' className="text-white hover:text-gray-300">HISTORY</Link>
-        <Link to='/' onClick={logoutUser} className="text-white hover:text-gray-300">LOGOUT</Link>
+        <Link to='/history' className="text-white hover:text-gray-300 text-sm md:text-base lg:text-lg font-medium uppercase tracking-wide mr-4 md:mr-6">History</Link>
+        <Link to='/' onClick={logoutUser} className="text-white hover:text-gray-300 text-sm md:text-base lg:text-lg font-medium uppercase tracking-wide mr-4 md:mr-6">Logout</Link>
       </>
     );
   };
@@ -44,11 +44,11 @@ const Header = () => {
       </div>
 
       <div className="flex space-x-4">
-        <Link to="/" className="text-white hover:text-gray-300">{isAdmin ? 'PRODUCTS' : 'SHOP'}</Link>
+        <Link to="/" className="text-white hover:text-gray-300 text-sm md:text-base lg:text-lg font-medium uppercase tracking-wide mr-4 md:mr-6">{isAdmin ? 'Products' : 'Shop'}</Link>
 
         {isAdmin && adminRouter()}
         {
-          isLogged ? loggedRouter() : <Link to="/login" className="text-white hover:text-gray-300">LOGIN OR REGISTER</Link>
+          isLogged ? loggedRouter() : <Link to="/login" className="text-white hover:text-gray-300 text-sm md:text-base lg:text-lg font-medium uppercase tracking-wide mr-4 md:mr-6">Login or Register</Link>
         }
 
       </div>
