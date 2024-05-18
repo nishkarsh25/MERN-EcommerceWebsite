@@ -28,5 +28,9 @@ export const DataProvider = ({children}) => {
     }
 
 
-    
+    return(
+        <GlobalState.Provider value={state}>
+            {children}
+        </GlobalState.Provider>
+    )
 }
