@@ -17,7 +17,14 @@ const Header = () => {
     setIsLogged(false);
   };
 
-  
+  const adminRouter = () => {
+    return (
+      <>
+        <li><Link to='/create_product' className="text-white hover:text-gray-300">CREATE PRODUCT</Link></li>
+        <li><Link to='/category' className="text-white hover:text-gray-300">CATEGORIES</Link></li>
+      </>
+    );
+  };
 
   
 
