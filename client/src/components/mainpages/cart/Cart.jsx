@@ -21,7 +21,12 @@ const Cart = () => {
     setCart(newCart);
   };
 
-  
+  const handleDecrement = (productId) => {
+    const newCart = cart.map(product =>
+      product._id === productId && product.quantity > 1 ? { ...product, quantity: product.quantity - 1 } : product
+    );
+    setCart(newCart);
+  };
 
   
 
