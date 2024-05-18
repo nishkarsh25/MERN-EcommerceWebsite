@@ -13,7 +13,16 @@ const Login = () => {
     setUser({ ...user, [name]: value });
   };
 
-  
+  const loginSubmit = async e => {
+    e.preventDefault();
+    try {
+      await axios.post('http://localhost:5000/user/login', { ...user });
+      localStorage.setItem('firstLogin', true);
+      window.location.href = "/";
+    } catch (err) {
+      alert(err.response.data.msg);
+    }
+  };
 
   
 };
