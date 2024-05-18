@@ -5,7 +5,10 @@ import { GlobalState } from '../../GlobalState';
 import axios from 'axios';
 
 const Header = () => {
-  
+  const state = useContext(GlobalState);
+  const [isLogged, setIsLogged] = state.userAPI.isLogged;
+  const [isAdmin, setIsAdmin] = state.userAPI.isAdmin;
+  const [cart] = state.userAPI.cart;
 
   
 
