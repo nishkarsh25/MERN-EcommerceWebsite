@@ -39,7 +39,12 @@ const UserAPI = (token) => {
         }
     };
 
-    
+    return {
+        isLogged: [isLogged, setIsLogged],
+        isAdmin: [isAdmin, setIsAdmin],
+        cart:[cart,setCart],
+        addCart: addCart
+    };
 };
 
 
