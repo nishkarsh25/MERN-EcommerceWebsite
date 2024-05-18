@@ -9,7 +9,10 @@ const Register = () => {
     password: ''
   });
 
-  
+  const onChangeInput = e => {
+    const { name, value } = e.target;
+    setUser({ ...user, [name]: value });
+  };
 
   
 
