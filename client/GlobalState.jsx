@@ -27,7 +27,6 @@ export const DataProvider = ({children}) => {
         userAPI:UserAPI(token)
     }
 
-
     return(
         <GlobalState.Provider value={state}>
             {children}
