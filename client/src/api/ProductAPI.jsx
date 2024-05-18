@@ -15,7 +15,9 @@ const ProductAPI = () => {
         getProducts()
     },[])
 
-  
+  return {
+    products : [products,setProducts]
+  }
 }
 
 
