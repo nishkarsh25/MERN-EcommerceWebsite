@@ -8,13 +8,7 @@ const DetailProduct = () => {
   const [products] = state.productsAPI.products;
   const [detailProduct, setDetailProduct] = useState({});
 
-  useEffect(() => {
-    if (params.id && products.length > 0) {
-      const foundProduct = products.find(product => product._id === params.id);
-      setDetailProduct(foundProduct || {});
-    }
-  }, [params.id, products]);
-
+ 
   
 };
 
