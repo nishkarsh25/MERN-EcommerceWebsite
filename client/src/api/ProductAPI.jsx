@@ -11,7 +11,11 @@ const ProductAPI = () => {
         setProducts(res.data.products)
     }
 
-    
+    useEffect(()=> {
+        getProducts()
+    },[])
+
+  
 }
 
 
