@@ -6,3 +6,15 @@ import UserAPI from "./api/UserAPI";
 
 export const GlobalState = createContext()
 
+export const DataProvider = ({children}) => {
+
+    const [token,setToken] = useState(false)
+
+    
+
+    
+    
+
+
+    
+}
