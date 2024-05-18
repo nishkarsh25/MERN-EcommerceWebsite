@@ -5,4 +5,16 @@ import { BrowserRouter as Router } from 'react-router-dom'
 import { DataProvider } from './GlobalState'
 
 
+const App = () => {
+  return (
+    <DataProvider>
+    <Router>
+    <div>
+      <Header/>
+      <Pages/>
+    </div>
+    </Router>
+    </DataProvider>
+  )
+}
 
