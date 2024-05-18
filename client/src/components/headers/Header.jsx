@@ -10,7 +10,12 @@ const Header = () => {
   const [isAdmin, setIsAdmin] = state.userAPI.isAdmin;
   const [cart] = state.userAPI.cart;
 
-  
+  const logoutUser = async () => {
+    await axios.get('/user/logout');
+    localStorage.clear();
+    setIsAdmin(false);
+    setIsLogged(false);
+  };
 
   
 
