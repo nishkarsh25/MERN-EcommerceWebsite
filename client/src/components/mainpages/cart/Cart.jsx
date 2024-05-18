@@ -28,7 +28,22 @@ const Cart = () => {
     setCart(newCart);
   };
 
-  
+  // const handleDecrement = (productId) => {
+  //   const newCart = cart.map(product =>
+  //     product._id === productId ? { ...product, quantity: product.quantity - 1 } : product
+  //   );
+
+  //   // Check if the product quantity is now 0
+  //   const productToRemove = newCart.find(product => product._id === productId && product.quantity === 0);
+
+  //   // If the product quantity is 0, remove it from the cart
+  //   if (productToRemove) {
+  //     const updatedCart = newCart.filter(product => product._id !== productId);
+  //     setCart(updatedCart);
+  //   } else {
+  //     setCart(newCart);
+  //   }
+  // };
 
 
   
