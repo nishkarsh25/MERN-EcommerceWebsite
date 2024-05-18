@@ -17,4 +17,4 @@ const App = () => {
     </DataProvider>
   )
 }
-
+export default App
