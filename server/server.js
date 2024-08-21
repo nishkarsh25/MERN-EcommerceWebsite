@@ -6,6 +6,12 @@ const cookieParser = require('cookie-parser');
 const cors = require('cors');
 
 const app = express();
+
+const path = require("path");
+
+const __dirName = path.resolve();
+console.log(__dirName);
+
 app.use(express.json());
 app.use(cookieParser());
 
@@ -17,9 +23,7 @@ app.use(cors({
 
 const PORT = process.env.PORT || 5000;
 
-app.get('/', (req, res) => {
-    res.json({ msg: "This is Example" });
-});
+
 
 app.listen(PORT, () => {
     console.log("SERVER IS RUNNING ...");
@@ -40,3 +44,8 @@ mongoose.connect(URI, {
 }).catch(err => {
     console.log(err);
 });
+
+app.use(express.static(path.join(__dirName, "/client/dist")));
+app.get("*", (req,res)=>{
+    res.sendFile(path.resolve(__dirName, "client", "dist", "index.html"));
+})
