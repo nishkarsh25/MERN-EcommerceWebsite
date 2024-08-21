@@ -16,7 +16,7 @@ This project is a fully functional e-commerce website developed using React.js f
 
 ## Live Demo
 
-You can try out the live demo of the app [here](https://magnificent-granita-605638.netlify.app/).
+You can try out the live demo of the app [here](https://mern-ecommercewebsite-1.onrender.com).
 
 ## Folder Structure
 
