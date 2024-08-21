@@ -1,146 +1,168 @@
-const { query } = require('express');
-const Products = require('../models/productModel')
-
+const { query } = require("express");
+const Products = require("../models/productModel");
 
 //Filter,sorting and pagination
 
-class APIfeatures{
-    constructor(query,queryString){
-        this.query = query;
-        this.queryString = queryString
+class APIfeatures {
+  constructor(query, queryString) {
+    this.query = query;
+    this.queryString = queryString;
+  }
+
+  filtering() {
+    const queryObj = { ...this.queryString };
+
+    console.log(queryObj);
+    //same as req.query but a copy since we used spread operator, this.queryStr is a reference to req.query so same object but heres a copy of req.query or more specifically copy of this.queryStr
+    // {
+    //     price: { lt: '80' },
+    //     sort: 'price,-createdAt',
+    //     title: { regex: 'e' },
+    //     page: '2',
+    //     limit: '1'
+    //   }
+    const excluededFields = ["page", "sort", "limit"];
+    excluededFields.forEach((el) => delete queryObj[el]);
+
+    console.log(queryObj);
+    //{ price: { lt: '80' }, title: { regex: 'e' } }
+    let queryStr = JSON.stringify(queryObj);
+    queryStr = queryStr.replace(
+      /\b(gte|gt|lt|lte|regex)\b/g,
+      (match) => "$" + match
+    );
+    console.log(queryStr);
+    //queryStr = '{ "price": { "$lt": 80 }, "title": { "$regex": "e" } }'
+    //in find operation
+    // YourModel.find({ "price": { "$lt": 80 }, "title": { "$regex": "e" } });
+    //https://mern-ecommercewebsite-1.onrender.com/api/products?price[lt]=80&sort=price,-createdAt&title[regex]=e&page=2&limit=1
+    //params
+    // price[lt]=80: Filters products where the price is less than 80.
+    // sort=price,-createdAt: Sorts the products by price in ascending order and then by createdAt in descending order for same price.
+    // title[regex]=e: Filters products where the title contains the letter "e" (case-sensitive).
+    // page=2: Specifies the page number for pagination.
+    // limit=1: Specifies the number of products per page.
+
+    this.query = this.query.find(JSON.parse(queryStr));
+
+    return this;
+  }
+
+  sorting() {
+    if (this.queryString.sort) {
+      const sortBy = this.queryString.sort.split(",").join(" ");
+
+      this.query = this.query.sort(sortBy);
+
+      console.log(sortBy);
+      //const sortedProducts = await Products.find({}).sort('price -createdAt');
+      //'price -createdAt'
+    } else {
+      this.query = this.query.sort("-createdAt");
     }
 
-    filtering(){
-        const queryObj = {...this.queryString} 
-        
-        console.log(queryObj)
-        //same as req.query but a copy since we used spread operator, this.queryStr is a reference to req.query so same object but heres a copy of req.query or more specifically copy of this.queryStr
-        // {
-        //     price: { lt: '80' },
-        //     sort: 'price,-createdAt',
-        //     title: { regex: 'e' },
-        //     page: '2',
-        //     limit: '1'
-        //   }
-        const excluededFields = ['page','sort','limit']
-        excluededFields.forEach(el => delete(queryObj[el]))
+    return this;
+  }
 
-        console.log(queryObj)
-        //{ price: { lt: '80' }, title: { regex: 'e' } }
-        let queryStr = JSON.stringify(queryObj)
-        queryStr = queryStr.replace(/\b(gte|gt|lt|lte|regex)\b/g, match => '$' + match)
-        console.log(queryStr)
-        //queryStr = '{ "price": { "$lt": 80 }, "title": { "$regex": "e" } }'
-        //in find operation
-        // YourModel.find({ "price": { "$lt": 80 }, "title": { "$regex": "e" } });
-        //http://localhost:5000/api/products?price[lt]=80&sort=price,-createdAt&title[regex]=e&page=2&limit=1
-        //params
-        // price[lt]=80: Filters products where the price is less than 80.
-        // sort=price,-createdAt: Sorts the products by price in ascending order and then by createdAt in descending order for same price.
-        // title[regex]=e: Filters products where the title contains the letter "e" (case-sensitive).
-        // page=2: Specifies the page number for pagination.
-        // limit=1: Specifies the number of products per page.
+  pagination() {
+    const page = this.queryString.page * 1 || 1;
 
-        
-        this.query = this.query.find(JSON.parse(queryStr))
+    const limit = this.queryString.limit * 1 || 20;
 
-        return this
-    }
+    const skip = (page - 1) * limit;
 
-    sorting(){
-        if(this.queryString.sort){
-            
-            const sortBy = this.queryString.sort.split(',').join(' ')
+    this.query = this.query.skip(skip).limit(limit);
 
-            this.query = this.query.sort(sortBy)
-
-            console.log(sortBy)
-            //const sortedProducts = await Products.find({}).sort('price -createdAt');
-            //'price -createdAt'
-        }else{
-            this.query = this.query.sort('-createdAt')
-        }
-
-        return this
-    }
-
-    pagination(){
-
-        const page = this.queryString.page * 1 || 1;
-
-        const limit =  this.queryString.limit * 1 || 20;
-
-        const skip = (page-1) * limit;
-
-        this.query = this.query.skip(skip).limit(limit);
-
-        return this;
-    }
+    return this;
+  }
 }
 
 const productCtrl = {
-    getProducts:async(req,res) => {
-        try{
-            console.log(req.query)
-            const features = new APIfeatures(Products.find(),req.query).filtering().sorting().pagination()
-            const products = await features.query
+  getProducts: async (req, res) => {
+    try {
+      console.log(req.query);
+      const features = new APIfeatures(Products.find(), req.query)
+        .filtering()
+        .sorting()
+        .pagination();
+      const products = await features.query;
 
-            res.json({status:'success',
-            result: products.length,
-        products:products})
-        }
-        catch(err){
-            return res.status(500).json({msg:err.message})
-        }
-    },
-    createProducts:async(req,res) => {
-        try{
-            const {product_id,title,price,description,content,images,category} = req.body
-
-            if(!images) return res.status(400).json({msg:"No Image Upload"})
-
-            const product = await Products.findOne({product_id})
-
-            if(product)
-            return res.status(400).json({msg:"This product already exists"})
-
-            const newProduct = new Products({
-                product_id,title : title.toLowerCase(),price,description,content,images,category
-            })
-
-            await newProduct.save();
-
-            res.json({msg:"Create a product"})
-        }
-        catch(err){
-            return res.status(500).json({msg:err.message})
-        }
-    },
-    deleteProduct:async(req,res) => {
-        try{
-            await Products.findByIdAndDelete(req.params.id)
-            res.json({msg:"Deleted a Product"})
-        }catch(err){
-            return res.status(500).json({msg:err.message})
-        }
-    },
-    updateProduct:async(req,res) => {
-        try{
-            const {title,price,description,content,images,category} = req.body;
-
-            if(!images) return res.status(500).json({msg:"No Image Upload"})
-            
-            
-            await Products.findOneAndUpdate({_id:req.params.id},{
-                title:title.toLowerCase(),price,description,content,images,category
-            })
-
-            res.json({msg:"Updated a Product"})
-        }
-        catch(err){
-            return res.status(500).json({msg:err.message})
-        }
+      res.json({
+        status: "success",
+        result: products.length,
+        products: products,
+      });
+    } catch (err) {
+      return res.status(500).json({ msg: err.message });
     }
-}
+  },
+  createProducts: async (req, res) => {
+    try {
+      const {
+        product_id,
+        title,
+        price,
+        description,
+        content,
+        images,
+        category,
+      } = req.body;
 
-module.exports = productCtrl
+      if (!images) return res.status(400).json({ msg: "No Image Upload" });
+
+      const product = await Products.findOne({ product_id });
+
+      if (product)
+        return res.status(400).json({ msg: "This product already exists" });
+
+      const newProduct = new Products({
+        product_id,
+        title: title.toLowerCase(),
+        price,
+        description,
+        content,
+        images,
+        category,
+      });
+
+      await newProduct.save();
+
+      res.json({ msg: "Create a product" });
+    } catch (err) {
+      return res.status(500).json({ msg: err.message });
+    }
+  },
+  deleteProduct: async (req, res) => {
+    try {
+      await Products.findByIdAndDelete(req.params.id);
+      res.json({ msg: "Deleted a Product" });
+    } catch (err) {
+      return res.status(500).json({ msg: err.message });
+    }
+  },
+  updateProduct: async (req, res) => {
+    try {
+      const { title, price, description, content, images, category } = req.body;
+
+      if (!images) return res.status(500).json({ msg: "No Image Upload" });
+
+      await Products.findOneAndUpdate(
+        { _id: req.params.id },
+        {
+          title: title.toLowerCase(),
+          price,
+          description,
+          content,
+          images,
+          category,
+        }
+      );
+
+      res.json({ msg: "Updated a Product" });
+    } catch (err) {
+      return res.status(500).json({ msg: err.message });
+    }
+  },
+};
+
+module.exports = productCtrl;
